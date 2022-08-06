@@ -1,0 +1,7 @@
+nosave bool hdb_debug = false;
+nosave bool hdb_enabled = true;
+nosave bool hdb_wornbackpacks = true;
+nosave bool hdb_headings = true;
+nosave bool hdb_weapons = true;
+nosave bool hdb_visibletoself = false;
+nosave int hdb_magstyle = 0;

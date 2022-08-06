@@ -1,0 +1,1 @@
+alias hdb_cleanup "netevent hdb_cleanup"

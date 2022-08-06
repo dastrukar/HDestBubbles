@@ -1,0 +1,24 @@
+AddOptionMenu "OptionsMenu"
+{
+	Submenu "Hideous Bubbles", "HDestBubbleMenu"
+}
+
+OptionMenu "HDestBubbleMenu"
+{
+	Title "Hideous Bubbles"
+    Option "Enabled", "hdb_enabled", "OnOff"
+    Option "Show Worn Backpacks", "hdb_wornbackpacks", "OnOff"
+    Option "Show Player Heading Indicators", "hdb_headings", "OnOff"
+    Option "Show Player Weapon", "hdb_weapons", "OnOff"
+    Option "Weapon Visible to Self", "hdb_visibletoself", "OnOff"
+	Option "Mag Manager Scaling", "hdb_magstyle", "BubblesMagScaleOption"
+	StaticText ""
+	StaticText "Recommend disabling this if Weapon Visible to Self is enabled", 1
+	Option "$DSPLYMNU_PLAYERSPRITES", "r_drawplayersprites", "OnOff"
+}
+
+OptionValue "BubblesMagScaleOption"
+{
+	-1, "Don't scale"
+	0, "Use actor scale"
+}
