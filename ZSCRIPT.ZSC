@@ -577,15 +577,11 @@ class Bubble_HDHealingBottler : Bubble_Weapon
         Bubble_Weapon.copyScale   "HDHealingPotion";
     }
 
-//     override bool CheckVisible(Actor target) { return super.CheckVisible(target) && target.FindInventory('HDHealingPotion'); }
-
     states
     {
     Spawn:
         BON1 A 1
         {
-//             sprite = target.FindInventory('HDHealingPotion')? GetSpriteIndex('BON1') : Sprite_TNT1;
-
             LowerIfAttackHeld(7., 3.);
         }
         Wait;
@@ -665,7 +661,7 @@ class Bubble_ReadyWeapon : HideousBubble
         let sprite = wep.GetPickupSprite();
         if (sprite == "" || sprite == "TNT1") return false;
 
-        return /*target != players[consoleplayer].camera &&*/ hdb_visibletoself && hdb_weapons;
+        return hdb_visibletoself && hdb_weapons;
     }
 
     Weapon prevWeapon;
