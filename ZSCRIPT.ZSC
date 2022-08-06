@@ -455,11 +455,18 @@ class Bubble_WornBackpack : HideousBubble
 
 class Bubble_WornWIMPBackpack : Bubble_WornBackpack
 {
+    string className;       property className: className;
+    class<Inventory> cls;   property cls:       cls;
+
+    override void BeginPlay()
+    {
+        Super.BeginPlay();
+        className = "WIMPHDBackpack";
+        cls = className;
+    }
+
     override bool CheckVisible(Actor target)
     {
-        string classname = "WIMPHDBackpack";
-        class<Inventory> cls = classname;
-
         if (cls)
         {
             let backpack = target.FindInventory(cls);
