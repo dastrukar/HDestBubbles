@@ -11,5 +11,5 @@ What is Hideous Destructor Bubbles? Well Josh771, the original mod creator, says
 
 ##### What has been changed in this fork:
 
-> - Updated to be target latest HD main
+> - Updated to target latest HD main
 > - Added CVar to allow bubbled weapons to appear to the user
