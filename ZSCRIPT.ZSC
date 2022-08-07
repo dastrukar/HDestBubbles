@@ -525,7 +525,7 @@ class Bubble_Injector : Bubble_Weapon
         return HDestBubbleHandler.Get().injectors.At(injector.GetClassName());
     }
 
-    static clearscope int GetInjectorSprite(Actor injectorMaker)
+    static clearscope int GetInjectorSprite(readonly <Actor> injectorMaker)
     {
         let spriteMap    = HDestBubbleHandler.Get().injectorSprites;
         let spriteMapKey = injectorMaker.GetClassName();
@@ -562,7 +562,7 @@ class Bubble_Injector : Bubble_Weapon
         TNT1 A 1
         {
             let injectorMakerClass = GetInjectorMaker(target.player.ReadyWeapon);
-            let injectorMaker      = target.FindInventory(injectorMakerClass);
+            let injectorMaker      = GetDefaultByType(injectorMakerClass);
 
             if (injectorMaker)
             {
