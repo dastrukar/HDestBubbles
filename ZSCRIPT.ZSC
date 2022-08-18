@@ -478,6 +478,16 @@ class Bubble_WornWIMPBackpack : Bubble_WornBackpack
     }
 }
 
+class Bubble_WornUaSAssaultPack : Bubble_WornWIMPBackpack
+{
+    override void BeginPlay()
+    {
+        Super.BeginPlay();
+        className = "UaS_AssaultPack";
+        cls = className;
+    }
+}
+
 class Bubble_DERPUsable : Bubble_Weapon
 {
     default
