@@ -697,7 +697,7 @@ class Bubble_ReadyWeapon : HideousBubble
         let sprite = wep.GetPickupSprite();
         if (sprite == "" || sprite == "TNT1") return false;
 
-        return hdb_visibletoself && hdb_weapons;
+        return hdb_weapons && (target != players[consoleplayer].camera || hdb_visibletoself);
     }
 
     Weapon prevWeapon;
