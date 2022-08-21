@@ -740,12 +740,16 @@ class Bubble_ReadyWeapon : HideousBubble
             vector2 toff  = TexMan.GetScaledOffset(tex);
             vector2 tsize = TexMan.GetScaledSize(tex);
 
-            lower += target != players[consoleplayer].camera? tsize.y * .7 : tsize.y;
+            lower += tsize.y;
 
-            reach = HDSMG(rw)? 8. : 16.;
+            reach = HDSMG(rw) || Blooper(rw) || Brontornis(rw)? 8. : 16.;
 
-            if (HDSMG(rw) || ThunderBuster(rw))
+            if (HDPistol(rw) || Hunter(rw) || Slayer(rw))
+                lower += 5.;
+            else if (HDSMG(rw) || ThunderBuster(rw))
                 lower += 2.;
+            else if (BFG9K(rw))
+                lower -= 4.;
         }
         Wait;
     }
