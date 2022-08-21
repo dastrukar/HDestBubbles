@@ -740,7 +740,7 @@ class Bubble_ReadyWeapon : HideousBubble
             vector2 toff  = TexMan.GetScaledOffset(tex);
             vector2 tsize = TexMan.GetScaledSize(tex);
 
-            lower += tsize.y * .7;
+            lower += target != players[consoleplayer].camera? tsize.y * .7 : tsize.y;
 
             reach = HDSMG(rw)? 8. : 16.;
 
