@@ -24,22 +24,22 @@ class HDestBubbleHandler : StaticEventHandler
             if (bubbleClass) continue;
 
             // injectors
-            let injectorMakerClass = (Class<HDInjectorMaker>)(thisClass);
-            let injectorClass = injectorMakerClass? GetDefaultByType(injectorMakerClass).injectorType : (Class<Weapon>)(null);
+            // let injectorMakerClass = (Class<HDInjectorMaker>)(thisClass);
+            // let injectorClass = injectorMakerClass? GetDefaultByType(injectorMakerClass).injectorType : (Class<Weapon>)(null);
 
-            if (injectorClass)
-            {
-                let injectorName = injectorClass.GetClassName();
-                let prevInjectorMaker = injectors.At(injectorName);
-                let injectorMakerName = injectorMakerClass.GetClassName();
-                if (hdb_debug && prevInjectorMaker != "")
-                    console.printf("Redefined injector maker for injector '%s' as '%s' (was '%s')",
-                        injectorName, prevInjectorMaker, injectorMakerName);
+            // if (injectorClass)
+            // {
+            //     let injectorName = injectorClass.GetClassName();
+            //     let prevInjectorMaker = injectors.At(injectorName);
+            //     let injectorMakerName = injectorMakerClass.GetClassName();
+            //     if (hdb_debug && prevInjectorMaker != "")
+            //         console.printf("Redefined injector maker for injector '%s' as '%s' (was '%s')",
+            //             injectorName, prevInjectorMaker, injectorMakerName);
 
-                injectors.Insert(injectorName, injectorMakerName);
-            }
+            //     injectors.Insert(injectorName, injectorMakerName);
+            // }
 
-            if (injectorMakerClass) continue;
+            // if (injectorMakerClass) continue;
         }
     }
 
@@ -528,64 +528,64 @@ class Bubble_HERPUsable : Bubble_DERPUsable
     }
 }
 
-class Bubble_Injector : Bubble_Weapon
-{
-    static clearscope Class<HDInjectorMaker> GetInjectorMaker(Weapon injector)
-    {
-        return HDestBubbleHandler.Get().injectors.At(injector.GetClassName());
-    }
+// class Bubble_Injector : Bubble_Weapon
+// {
+//     static clearscope Class<HDInjectorMaker> GetInjectorMaker(Weapon injector)
+//     {
+//         return HDestBubbleHandler.Get().injectors.At(injector.GetClassName());
+//     }
 
-    static clearscope int GetInjectorSprite(readonly <Actor> injectorMaker)
-    {
-        let spriteMap    = HDestBubbleHandler.Get().injectorSprites;
-        let spriteMapKey = injectorMaker.GetClassName();
-        let spriteString = spriteMap.At(spriteMapKey);
-        if (spriteString == "")
-        {
-            Array<State> seenStates;
-            for (State st = injectorMaker.spawnState;
-                st && seenStates.Find(st) == seenStates.Size();
-                st = st.NextState)
-            {
-                seenStates.Push(st);
+//     static clearscope int GetInjectorSprite(readonly <Actor> injectorMaker)
+//     {
+//         let spriteMap    = HDestBubbleHandler.Get().injectorSprites;
+//         let spriteMapKey = injectorMaker.GetClassName();
+//         let spriteString = spriteMap.At(spriteMapKey);
+//         if (spriteString == "")
+//         {
+//             Array<State> seenStates;
+//             for (State st = injectorMaker.spawnState;
+//                 st && seenStates.Find(st) == seenStates.Size();
+//                 st = st.NextState)
+//             {
+//                 seenStates.Push(st);
 
-                if (st.sprite > 0)
-                {
-                    spriteMap.Insert(spriteMapKey, "" .. st.sprite);
-                    return st.sprite;
-                }
-            }
-        }
+//                 if (st.sprite > 0)
+//                 {
+//                     spriteMap.Insert(spriteMapKey, "" .. st.sprite);
+//                     return st.sprite;
+//                 }
+//             }
+//         }
 
-        return spriteString.ToInt();
-    }
+//         return spriteString.ToInt();
+//     }
 
-    override bool CheckVisible(Actor target)
-    {
-        let wep = HDWeapon(target.player.ReadyWeapon);
-        return wep? !!GetInjectorMaker(wep) : false;
-    }
+//     override bool CheckVisible(Actor target)
+//     {
+//         let wep = HDWeapon(target.player.ReadyWeapon);
+//         return wep? !!GetInjectorMaker(wep) : false;
+//     }
 
-    states
-    {
-    Spawn:
-        TNT1 A 1
-        {
-            let injectorMakerClass = GetInjectorMaker(target.player.ReadyWeapon);
-            let injectorMaker      = GetDefaultByType(injectorMakerClass);
+//     states
+//     {
+//     Spawn:
+//         TNT1 A 1
+//         {
+//             let injectorMakerClass = GetInjectorMaker(target.player.ReadyWeapon);
+//             let injectorMaker      = GetDefaultByType(injectorMakerClass);
 
-            if (injectorMaker)
-            {
-                sprite = GetInjectorSprite(injectorMaker);
-                scale  = injectorMaker.scale;
-            }
-            else sprite = Sprite_TNT1;
+//             if (injectorMaker)
+//             {
+//                 sprite = GetInjectorSprite(injectorMaker);
+//                 scale  = injectorMaker.scale;
+//             }
+//             else sprite = Sprite_TNT1;
 
-            LowerIfAttackHeld(7., 7.);
-        }
-        Wait;
-    }
-}
+//             LowerIfAttackHeld(7., 7.);
+//         }
+//         Wait;
+//     }
+// }
 
 class Bubble_HDHealingBottler : Bubble_Weapon
 {
