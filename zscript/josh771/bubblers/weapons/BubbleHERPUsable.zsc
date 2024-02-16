@@ -1,5 +1,9 @@
 class Bubble_HERPUsable : Bubble_DERPUsable
 {
+    override bool CheckVisible(Actor target) {
+        return super.CheckVisible(target) && !(target.player.cmd.buttons & BT_ZOOM);
+    }
+    
     default
     {
         Bubble_Weapon.weaponClass "HERPUsable";
@@ -13,7 +17,6 @@ class Bubble_HERPUsable : Bubble_DERPUsable
             {
                 angle = target.angle;
                 translation = target.translation;
-                frame = (target.player.cmd.buttons & BT_ZOOM) && (target.player.cmd.buttons & BT_ATTACK);
             }
             Wait;
     }
