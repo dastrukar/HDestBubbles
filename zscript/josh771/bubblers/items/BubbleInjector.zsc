@@ -1,19 +1,15 @@
 class Bubble_Injector : Bubble_Weapon
 {
-    static clearscope Class<HDInjectorMaker> GetInjectorMaker(Weapon injector)
-    {
-        return HDestBubbleHandler.Get().injectors.At(injector.GetClassName());
-    }
-
-    static clearscope int GetInjectorSprite(readonly <Actor> injectorMaker)
+    static clearscope int GetInjectorSprite(readonly <Actor> injector)
     {
         let spriteMap    = HDestBubbleHandler.Get().injectorSprites;
-        let spriteMapKey = injectorMaker.GetClassName();
+        let spriteMapKey = injector.GetClassName();
         let spriteString = spriteMap.At(spriteMapKey);
+
         if (spriteString == "")
         {
             Array<State> seenStates;
-            for (State st = injectorMaker.spawnState;
+            for (State st = injector.spawnState;
                 st && seenStates.Find(st) == seenStates.Size();
                 st = st.NextState)
             {
@@ -30,10 +26,9 @@ class Bubble_Injector : Bubble_Weapon
         return spriteString.ToInt();
     }
 
-    override bool CheckVisible(Actor target)
+    default
     {
-        let wep = HDWeapon(target.player.ReadyWeapon);
-        return wep? !!GetInjectorMaker(wep) : false;
+        Bubble_Weapon.weaponClass "PortableStimpack";
     }
 
     states
@@ -41,15 +36,10 @@ class Bubble_Injector : Bubble_Weapon
         Spawn:
             TNT1 A 1
             {
-                let injectorMakerClass = GetInjectorMaker(target.player.ReadyWeapon);
-                let injectorMaker      = GetDefaultByType(injectorMakerClass);
-
-                if (injectorMaker)
-                {
-                    sprite = GetInjectorSprite(injectorMaker);
-                    scale  = injectorMaker.scale;
+                let injector = PortableStimpack(target.player.ReadyWeapon);
+                if (injector.spentinjecttype) {
+                    sprite = GetInjectorSprite(GetDefaultByType(injector.spentinjecttype));
                 }
-                else sprite = Sprite_TNT1;
 
                 LowerIfAttackHeld(7., 7.);
             }

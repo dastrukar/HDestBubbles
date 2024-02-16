@@ -3,12 +3,10 @@ class HDestBubbleHandler : StaticEventHandler
     HDestBubbler bubblers[MAXPLAYERS];
     Array<Class<HideousBubble> > bubbleClasses;
 
-    Dictionary injectors;
     Dictionary injectorSprites;
 
     override void OnRegister()
     {
-        injectors       = Dictionary.Create();
         injectorSprites = Dictionary.Create();
 
         for (int i = 0; i < AllActorClasses.Size(); i++)
@@ -19,24 +17,6 @@ class HDestBubbleHandler : StaticEventHandler
             let bubbleClass = (Class<HideousBubble>)(thisClass);
             if (bubbleClass && !IsAbstract(bubbleClass)) bubbleClasses.Push(bubbleClass);
             if (bubbleClass) continue;
-
-            // injectors
-            // let injectorMakerClass = (Class<HDInjectorMaker>)(thisClass);
-            // let injectorClass = injectorMakerClass? GetDefaultByType(injectorMakerClass).injectorType : (Class<Weapon>)(null);
-
-            // if (injectorClass)
-            // {
-            //     let injectorName = injectorClass.GetClassName();
-            //     let prevInjectorMaker = injectors.At(injectorName);
-            //     let injectorMakerName = injectorMakerClass.GetClassName();
-            //     if (hdb_debug && prevInjectorMaker != "")
-            //         console.printf("Redefined injector maker for injector '%s' as '%s' (was '%s')",
-            //             injectorName, prevInjectorMaker, injectorMakerName);
-
-            //     injectors.Insert(injectorName, injectorMakerName);
-            // }
-
-            // if (injectorMakerClass) continue;
         }
     }
 

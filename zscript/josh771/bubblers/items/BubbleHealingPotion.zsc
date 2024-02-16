@@ -1,8 +1,8 @@
-class Bubble_HDHealingBottler : Bubble_Weapon
+class Bubble_HDHealingPotion : Bubble_Weapon
 {
     default
     {
-        Bubble_Weapon.weaponClass "HDHealingBottler";
+        Bubble_Weapon.weaponClass "HDHealingPotion";
         Bubble_Weapon.copyScale   "HDHealingPotion";
     }
 

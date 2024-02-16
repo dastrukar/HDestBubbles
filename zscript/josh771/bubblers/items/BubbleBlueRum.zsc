@@ -1,0 +1,18 @@
+class Bubble_BlueRum : Bubble_Weapon
+{
+    default
+    {
+        Bubble_Weapon.weaponClass "BlueRum";
+        Bubble_Weapon.copyScale   "BlueRum";
+    }
+
+    states
+    {
+        Spawn:
+            BTTL D 1
+            {
+                LowerIfAttackHeld(7., 3.);
+            }
+            Wait;
+    }
+}

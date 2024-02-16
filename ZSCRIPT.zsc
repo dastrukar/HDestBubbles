@@ -18,8 +18,9 @@ version "4.11"
 
 // Bubbler Classes
 #include "zscript/josh771/bubblers/items/BubbleBackpack.zsc"
-#include "zscript/josh771/bubblers/items/BubbleHealingBottler.zsc"
-// #include "zscript/josh771/bubblers/items/BubbleInjector.zsc"
+#include "zscript/josh771/bubblers/items/BubbleBlueRum.zsc"
+#include "zscript/josh771/bubblers/items/BubbleHealingPotion.zsc"
+#include "zscript/josh771/bubblers/items/BubbleInjector.zsc"
 #include "zscript/josh771/bubblers/items/BubbleMedikitter.zsc"
 #include "zscript/josh771/bubblers/items/BubblePocketRadio.zsc"
 #include "zscript/josh771/bubblers/items/BubbleUasConsumable.zsc"
