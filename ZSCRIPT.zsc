@@ -632,6 +632,24 @@ class Bubble_HDGrenadeThrower : Bubble_Weapon
     }
 }
 
+class Bubble_PocketRadio : Bubble_Weapon
+{
+    default
+    {
+        Bubble_Weapon.weaponClass "HDPocketRadio";
+    }
+
+    states
+    {
+    Spawn:
+        TNT1 A 1
+        {
+            let ration = HDWeapon(target.player.ReadyWeapon);
+            CopyWeaponSprite(ration, "RDIOA0");
+        }
+    }
+}
+
 class Bubble_UaSConsumable : Bubble_Weapon
 {
     default
@@ -645,7 +663,7 @@ class Bubble_UaSConsumable : Bubble_Weapon
         TNT1 A 1
         {
             let ration = HDWeapon(target.player.ReadyWeapon);
-            CopyWeaponSprite(ration, "HSCVB0");
+            CopyWeaponSprite(ration, "HSCVB0", true);
         }
     }
 }
