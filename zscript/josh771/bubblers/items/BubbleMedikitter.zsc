@@ -1,0 +1,20 @@
+class Bubble_HDMedikitter : Bubble_Weapon
+{
+    default
+    {
+        Bubble_Weapon.weaponClass "HDMedikitter";
+    }
+
+    states
+    {
+        Spawn:
+            MEDI # 1
+            {
+                let hdmk = HDMedikitter(target.player.readyweapon);
+                frame = (hdmk.weaponstatus[2] < 0)? 1 : 2;
+
+                LowerIfAttackHeld(7., 7.);
+            }
+            Wait;
+    }
+}

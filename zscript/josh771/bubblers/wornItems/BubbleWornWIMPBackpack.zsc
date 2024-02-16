@@ -1,0 +1,23 @@
+class Bubble_WornWIMPBackpack : Bubble_WornBackpack
+{
+    string className;       property className: className;
+    class<Inventory> cls;   property cls:       cls;
+
+    override void BeginPlay()
+    {
+        Super.BeginPlay();
+        className = "WIMPHDBackpack";
+        cls = className;
+    }
+
+    override bool CheckVisible(Actor target)
+    {
+        if (cls)
+        {
+            let backpack = target.FindInventory(cls);
+            return backpack && !(target.player.ReadyWeapon is "HDBackpack") && hdb_wornbackpacks;
+        }
+
+        return false;
+    }
+}

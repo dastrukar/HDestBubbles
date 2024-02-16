@@ -1,0 +1,18 @@
+class Bubble_HDHealingBottler : Bubble_Weapon
+{
+    default
+    {
+        Bubble_Weapon.weaponClass "HDHealingBottler";
+        Bubble_Weapon.copyScale   "HDHealingPotion";
+    }
+
+    states
+    {
+        Spawn:
+            BON1 A 1
+            {
+                LowerIfAttackHeld(7., 3.);
+            }
+            Wait;
+    }
+}

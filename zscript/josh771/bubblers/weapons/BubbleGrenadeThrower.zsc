@@ -1,0 +1,25 @@
+class Bubble_HDGrenadeThrower : Bubble_Weapon
+{
+    default
+    {
+        Bubble_Weapon.weaponClass "HDGrenadeThrower";
+    }
+
+    states
+    {
+        Spawn:
+            FRAG A 1
+            {
+                let grenade = HDGrenadeThrower(target.player.ReadyWeapon);
+                if (target.FindInventory(grenade.grenadeammotype)
+                    || (grenade.weaponstatus[0] & FRAGF_INHAND))
+                {
+                    CopyWeaponSprite(grenade, "FRAG");
+
+                    scale = GetDefaultByType(grenade.grenadeammotype).scale;
+                }
+                else sprite = Sprite_TNT1;
+            }
+            Wait;
+    }
+}

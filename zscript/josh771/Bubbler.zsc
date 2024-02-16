@@ -1,0 +1,63 @@
+class HDestBubbler : Thinker
+{
+    HideousBubble weaponBubble;
+    Array<HideousBubble> bubbles;
+
+    HDestBubbleHandler handler;
+    PlayerPawn owner;
+
+    override void OnDestroy()
+    {
+        bubbles.Push(weaponBubble);
+
+        for (int i = 0; i < bubbles.size(); i++)
+            if (bubbles[i]) bubbles[i].Destroy();
+    }
+
+    HideousBubble MakeBubble(Class<HideousBubble> bubbleClass)
+    {
+        let bubble = HideousBubble(Actor.Spawn(bubbleClass));
+        if (bubble)
+        {
+            bubble.target = owner;
+            bubble.bubbler = self;
+            bubble.MoveHome();
+            bubble.CopyInterpolation();
+        }
+
+        return bubble;
+    }
+
+    bool CheckBubble(Class<HideousBubble> bubbleClass) const
+    {
+        let defaultBubble = GetDefaultByType(bubbleClass);
+        return defaultBubble.CheckVisible(owner);
+    }
+
+    void MakeWeaponBubble()
+    {
+        for (int i = handler.bubbleClasses.Size() - 1; i >= 0; i--)
+        {
+            let bubbleClass = (Class<Bubble_Weapon>)(handler.bubbleClasses[i]);
+            if (!bubbleClass || !CheckBubble(bubbleClass)) continue;
+
+            weaponBubble = MakeBubble(bubbleClass);
+            return;
+        }
+    }
+
+    override void Tick()
+    {
+        if (!HDestBubbleHandler.CheckPlayer(owner)) { Destroy(); return; }
+        if (!weaponBubble) MakeWeaponBubble();
+    }
+
+    override void PostBeginPlay()
+    {
+        for (int i = 0; i < handler.bubbleClasses.Size(); i++)
+        {
+            let bubbleClass = (Class<HideousBubble>)(handler.bubbleClasses[i]);
+            if (bubbleClass) bubbles.Push(MakeBubble(bubbleClass));
+        }
+    }
+}

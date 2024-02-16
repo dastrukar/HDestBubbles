@@ -1,0 +1,33 @@
+class Bubble_Weapon : HideousBubble abstract
+{
+    string weaponClass; property weaponClass: weaponClass;
+    string copyScale;   property copyScale:   copyScale;
+
+    default
+    {
+        Bubble_Weapon.copyScale "Weapon";
+        RenderStyle "Normal";
+    }
+
+    override void BeginPlay()
+    {
+        visible = true;
+
+        class<Actor> cls = copyScale;
+        if (cls == 'Weapon') cls = weaponClass;
+        if (cls) scale = Vec2Mul(default.scale, GetDefaultByType(cls).scale);
+    }
+
+    override bool CheckVisible(Actor target) { return target.player.ReadyWeapon is weaponClass; }
+
+    override void SetVisible(bool setting)
+    {
+        if (!setting)
+        {
+            Destroy();
+            // Hmmm...
+            //bubbler.MakeWeaponBubble();
+        }
+        else super.SetVisible(setting);
+    }
+}

@@ -1,0 +1,29 @@
+class Bubble_PlayerHeading : HideousBubble
+{
+    override void PostBeginPlay()
+    {
+        pitch = 90.;
+    }
+
+    override bool CheckVisible(Actor target) { return target != players[consoleplayer].camera && hdb_headings; }
+
+    default
+    {
+        +INTERPOLATEANGLES
+        -FORCEXYBILLBOARD
+        +FLATSPRITE
+        +ROLLSPRITE
+        HideousBubble.reach 1.;
+    }
+
+    states
+    {
+        Spawn:
+            HDTR Z 1
+            {
+                angle = target.angle + 90.;
+                roll = target.pitch;
+            }
+            Wait;
+    }
+}

@@ -1,0 +1,39 @@
+class Bubble_HDBackpack : Bubble_Weapon
+{
+    default
+    {
+        Bubble_Weapon.weaponClass "HDBackpack";
+        HideousBubble.lower 16.;
+    }
+
+    double GetSpriteHeight(String sprite)
+    {
+        let tex  = TexMan.CheckForTexture(sprite, TexMan.Type_Sprite, 0);
+        let size = TexMan.GetScaledSize(tex);
+        return size.y;
+    }
+
+    states
+    {
+        Spawn:
+            BPAK A 1
+            {
+                angle = target.angle + 180.;
+
+                let backpack = HDBackpack(target.player.ReadyWeapon);
+                CopyWeaponSprite(backpack, "BPAK");
+
+                let defBackpack = GetDefaultByType('HDBackpack');
+                let baseHeight = GetSpriteHeight(defBackpack.GetPickupSprite()) * defBackpack.scale.y;
+                let thisHeight = GetSpriteHeight(backpack.GetPickupSprite())    * backpack.scale.y;
+
+                let prevLower = lower;
+                lower = default.lower - (baseHeight - thisHeight);
+
+                prev.z += prevLower - lower;
+
+                scale = backpack.scale;
+            }
+            Wait;
+    }
+}

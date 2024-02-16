@@ -1,0 +1,74 @@
+class Bubble_ReadyWeapon : HideousBubble
+{
+    override void PostBeginPlay()
+    {
+        pitch = -90.;
+    }
+
+    override bool CheckVisible(Actor target)
+    {
+        if (bubbler.weaponBubble) return false;
+
+        let wep = HDWeapon(target.player.ReadyWeapon);
+        if (!wep || wep is 'HDWoundFixer') return false;
+
+        let sprite = wep.GetPickupSprite();
+        if (sprite == "" || sprite == "TNT1") return false;
+
+        return hdb_weapons && (target != players[consoleplayer].camera || hdb_visibletoself);
+    }
+
+    Weapon prevWeapon;
+    override void MoveHome()
+    {
+        super.MoveHome();
+        if (!visible) return;
+
+        let weapon = target.player.ReadyWeapon;
+        if (prevWeapon != (prevWeapon = weapon)) CopyInterpolation();
+    }
+
+    default
+    {
+        +INTERPOLATEANGLES
+        -FORCEXYBILLBOARD
+        +FLATSPRITE
+        +ROLLSPRITE
+
+        HideousBubble.shift 1.;
+        HideousBubble.pitch_offset 0.;
+    }
+
+    states
+    {
+        Spawn:
+            TNT1 A 1
+            {
+                let rw = hdweapon(target.player.readyweapon);
+                let hdp = hdplayerpawn(target);
+                let cam = hdp.scopecamera? hdp.scopecamera : target;
+
+                angle = cam.angle - 90. + hdp.wepbob.x * 0.1;
+                roll  = cam.pitch;
+                lower = hdp.wepbob.y * 0.1;
+
+                let sprite_name = CopyWeaponSprite(rw, "TNT1");
+
+                textureid tex = TexMan.CheckForTexture(sprite_name, TexMan.TYPE_SPRITE);
+                vector2 toff  = TexMan.GetScaledOffset(tex);
+                vector2 tsize = TexMan.GetScaledSize(tex);
+
+                lower += tsize.y;
+
+                reach = HDSMG(rw) || Blooper(rw) || Brontornis(rw)? 8. : 16.;
+
+                if (HDPistol(rw) || Hunter(rw) || Slayer(rw))
+                    lower += 5.;
+                else if (HDSMG(rw) || ThunderBuster(rw))
+                    lower += 2.;
+                else if (BFG9K(rw))
+                    lower -= 4.;
+            }
+            Wait;
+    }
+}

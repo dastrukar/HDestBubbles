@@ -1,0 +1,9 @@
+class Bubble_WornUaSAssaultPack : Bubble_WornWIMPBackpack
+{
+    override void BeginPlay()
+    {
+        Super.BeginPlay();
+        className = "UaS_AssaultPack";
+        cls = className;
+    }
+}

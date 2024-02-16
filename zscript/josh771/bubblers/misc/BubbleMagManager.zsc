@@ -1,0 +1,36 @@
+class Bubble_MagManager : Bubble_Weapon
+{
+    default
+    {
+        Bubble_Weapon.weaponClass "MagManager";
+        HideousBubble.pitch_offset 0.;
+        HideousBubble.lower 12.;
+    }
+
+    override bool CheckVisible(Actor target)
+    {
+        if (!super.CheckVisible(target)) return false;
+
+        let thisMag = HDMagAmmo(MagManager(target.player.readyweapon).thismag);
+        return thisMag && thisMag.mags.Size() > 0;
+    }
+
+    states
+    {
+        Spawn:
+            TNT1 A 1
+            {
+                let mag = HDMagAmmo(MagManager(target.player.readyweapon).thismag);
+                int curmag = mag.mags[mag.mags.size() - 1];
+
+                string magsprite; string roundsprite; name roundtype; double scl;
+                [magsprite, roundsprite, roundtype, scl] = mag.getmagsprite(curmag);
+                CopySprite(magsprite);
+
+                if (hdb_magstyle >= 0) scale = mag.scale;
+
+                if (!IsSprite(magsprite)) frame = curmag == 0;
+            }
+            Wait;
+    }
+}

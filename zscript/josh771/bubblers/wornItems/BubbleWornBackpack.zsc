@@ -1,0 +1,23 @@
+class Bubble_WornBackpack : HideousBubble
+{
+    override bool CheckVisible(Actor target)
+    {
+        let backpack = target.FindInventory('HDBackpack');
+        return backpack && backpack != target.player.ReadyWeapon && hdb_wornbackpacks;
+    }
+
+    default
+    {
+        -FORCEXYBILLBOARD
+        HideousBubble.lower 24.;
+        HideousBubble.reach -16.;
+        HideousBubble.pitch_affected false;
+    }
+
+    states
+    {
+        Spawn:
+            BPAK A 1 { angle = target.angle + 180.; }
+            Wait;
+    }
+}

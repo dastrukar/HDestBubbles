@@ -1,0 +1,158 @@
+class HideousBubble : Actor abstract
+{
+    Vector3 home;
+    double shift;
+    double lower;
+    double reach;
+    double pitch_offset;
+    bool pitch_affected;
+    bool visible;
+    property shift:shift;
+    property lower:lower;
+    property reach:reach;
+    property pitch_affected:pitch_affected;
+    property pitch_offset:pitch_offset;
+
+    HDestBubbler bubbler;
+
+    double map(double v, double min_a, double max_a, double min_b, double max_b)
+    {
+        return (v - min_a) / (max_a - min_a) * (max_b - min_b) + min_b;
+    }
+
+    virtual void MoveHome()
+    {
+        Vector3 offset;
+        if (pitch_affected)
+        {
+            double tp = min(75., target.pitch + pitch_offset);
+            offset = (AngleToVector(target.angle, abs(cos(tp))), -sin(tp)) * reach;
+        }
+        else
+        {
+            offset = (AngleToVector(target.angle), 0) * reach;
+        }
+        offset += AngleToVector(target.angle - 90., shift);
+        home = (target.pos.xy, target.player.viewz - lower) + offset;
+        SetOrigin(home, true);
+    }
+
+    virtual bool CheckVisible(Actor target) const { return true; }
+
+    override void Tick()
+    {
+        if (isFrozen() || !HDestBubbleHandler.CheckPlayer(PlayerPawn(target))) return;
+
+        if (CheckVisible(target) != visible) SetVisible(!visible);
+        if (bDestroyed) return;
+
+        if (visible && GetRenderStyle() != target.GetRenderStyle())
+            A_SetRenderStyle(target.alpha, target.GetRenderStyle());
+
+        if (visible && tics != -1 && --tics <= 0 && !SetState(CurState.NextState)) return;
+
+        MoveHome();
+    }
+
+    virtual void SetVisible(bool setting)
+    {
+        A_SetRenderStyle(target.alpha, setting? target.GetRenderStyle() : STYLE_None);
+        visible = setting;
+    }
+
+    void CopyInterpolation()
+    {
+        ClearInterpolation();
+        prev = pos + target.prev - target.pos;
+    }
+
+    String CopyWeaponSprite(HDWeapon weapon, string fallbackSprite, bool useSpriteScale = false)
+    {
+        string sprite_name; double sprite_scale;
+        [sprite_name, sprite_scale] = weapon.GetPickupSprite();
+
+        if (sprite_name == "") sprite_name = fallbackSprite;
+        if (!sprite_scale) useSpriteScale = false;
+
+        CopySprite(sprite_name, useSpriteScale? (1, 1) * sprite_scale : (weapon.scale.x, weapon.scale.y));
+
+        return sprite_name;
+    }
+
+    string warned_sprite;
+    void CopySprite(string sprite_name, vector2 sprite_scale = (1, 1))
+    {
+        if (!hdb_debug) warned_sprite = "";
+
+        if (!IsValidSprite(sprite_name))
+        {
+            if (hdb_debug && sprite_name != warned_sprite)
+            {
+                console.printf("Tried to use invalid sprite '%s'", sprite_name);
+                warned_sprite = sprite_name;
+            }
+
+            sprite = Sprite_TNT1;
+            return;
+        }
+        else if (hdb_debug && !IsSprite(sprite_name) && sprite_name != warned_sprite)
+        {
+            console.printf("Tried to use invalid sprite '%s', but found valid sprite '%s'", sprite_name, sprite_name.Left(4));
+            warned_sprite = sprite_name;
+        }
+
+        sprite = GetSpriteIndex(sprite_name);
+        scale = Vec2Mul(default.scale, sprite_scale);
+        frame = IsSprite(sprite_name)? sprite_name.ByteAt(4) - 65 : 0;
+    }
+
+    static clearscope vector2 Vec2Mul(vector2 a, vector2 b) { return (a.x * b.x, a.y * b.y); }
+
+    // check if sprite exists - does not verify if the sprite is registered
+    static clearscope bool IsSprite(String sprite_name)
+    {
+        // check for sprites ONLY - with default flags this falls back to any texture
+        return TexMan.CheckForTexture(sprite_name, TexMan.Type_Sprite, 0).IsValid();
+    }
+
+    // check if sprite is valid and safe to use
+    static bool IsValidSprite(String sprite_name) { return GetSpriteIndex(sprite_name) >= 0; }
+
+    void LowerIfAttackHeld(double newReach, double newLower)
+    {
+        let attack = target.player.cmd.buttons & BT_ATTACK;
+
+        let dreach = (attack? newReach : default.reach) - reach;
+        let dlower = (attack? newLower : default.lower) - lower;
+
+        if (!(dreach ~== 0)) reach += dreach * 0.5;
+        if (!(dlower ~== 0)) lower += dlower * 0.5;
+    }
+
+    // TNT1 is always the first sprite
+    const Sprite_TNT1 = 0;
+
+    default
+    {
+        +FORCEXYBILLBOARD
+        +NOINTERACTION
+        +NOBLOCKMAP
+        +NOGRAVITY
+        HideousBubble.shift 0.;
+        HideousBubble.lower 0.;
+        HideousBubble.reach 21.;
+        HideousBubble.pitch_affected true;
+        HideousBubble.pitch_offset 30.;
+        FloatBobPhase 0;
+        RenderStyle "None";
+        Height 1.;
+        Radius 0.5;
+    }
+
+    states
+    {
+        Spawn:
+            SKUL A -1;
+            Stop;
+    }
+}

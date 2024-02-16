@@ -1,0 +1,20 @@
+class Bubble_HERPUsable : Bubble_DERPUsable
+{
+    default
+    {
+        Bubble_Weapon.weaponClass "HERPUsable";
+        HideousBubble.lower 12.;
+    }
+
+    states
+    {
+        Spawn:
+            HERP A 1
+            {
+                angle = target.angle;
+                translation = target.translation;
+                frame = (target.player.cmd.buttons & BT_ZOOM) && (target.player.cmd.buttons & BT_ATTACK);
+            }
+            Wait;
+    }
+}

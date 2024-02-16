@@ -1,0 +1,17 @@
+class Bubble_UaSConsumable : Bubble_Weapon
+{
+    default
+    {
+        Bubble_Weapon.weaponClass "UaS_Consumable";
+    }
+
+    states
+    {
+        Spawn:
+            TNT1 A 1
+            {
+                let ration = HDWeapon(target.player.ReadyWeapon);
+                CopyWeaponSprite(ration, "HSCVB0");
+            }
+    }
+}

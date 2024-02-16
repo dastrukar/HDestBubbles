@@ -1,0 +1,14 @@
+class Bubble_PocketRadio : Bubble_Weapon
+{
+    default
+    {
+        Bubble_Weapon.weaponClass "HDPocketRadio";
+    }
+
+    states
+    {
+        Spawn:
+            RDIO A 1;
+            wait;
+    }
+}
