@@ -1,0 +1,18 @@
+class Bubble_Slurpsphere : Bubble_Weapon
+{
+    default
+    {
+        Bubble_Weapon.weaponClass "SlurpableSphere";
+        Bubble_Weapon.copyScale   "SlurpableSphere";
+    }
+
+    states
+    {
+        Spawn:
+            BBSL A 1
+            {
+                LowerIfAttackHeld(7., 3.);
+            }
+            Wait;
+    }
+}
