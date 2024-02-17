@@ -1,0 +1,15 @@
+class Bubble_UaSTraumaKit : Bubble_Weapon
+{
+    default
+    {
+        Bubble_Weapon.weaponClass "UaS_TraumaKit";
+        Bubble_Weapon.copyScale "UaS_TraumaKit";
+    }
+
+    states
+    {
+        Spawn:
+            UGSI F 1;
+            wait;
+    }
+}

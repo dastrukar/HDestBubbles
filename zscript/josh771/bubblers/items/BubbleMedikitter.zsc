@@ -3,6 +3,7 @@ class Bubble_HDMedikitter : Bubble_Weapon
     default
     {
         Bubble_Weapon.weaponClass "HDMedikitter";
+        Bubble_Weapon.copyScale "HDMediKitter";
     }
 
     states

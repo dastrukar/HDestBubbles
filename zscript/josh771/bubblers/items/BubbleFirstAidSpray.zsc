@@ -1,0 +1,18 @@
+class Bubble_HDFirstAidSpray : Bubble_Weapon
+{
+    default
+    {
+        Bubble_Weapon.weaponClass "HDFirstAidSpray";
+        Bubble_Weapon.copyScale "HDFirstAidSpray";
+    }
+
+    states
+    {
+        Spawn:
+            FAID # 1
+            {
+                LowerIfAttackHeld(7., 7.);
+            }
+            Wait;
+    }
+}
