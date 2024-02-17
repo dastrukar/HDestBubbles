@@ -37,8 +37,17 @@ class Bubble_Injector : Bubble_Weapon
             TNT1 A 1
             {
                 let injector = PortableStimpack(target.player.ReadyWeapon);
-                if (injector.spentinjecttype) {
-                    sprite = GetInjectorSprite(GetDefaultByType(injector.spentinjecttype));
+
+                switch (injector.GetClassName()) {
+                    case 'SecondBlood':
+                        CopySprite('PBLDA0', injector.scale);
+                        break;
+                    default:
+                        if (injector.spentinjecttype) {
+                            sprite = GetInjectorSprite(GetDefaultByType(injector.spentinjecttype));
+                            scale = injector.scale;
+                        }
+                        break;
                 }
 
                 LowerIfAttackHeld(7., 7.);
