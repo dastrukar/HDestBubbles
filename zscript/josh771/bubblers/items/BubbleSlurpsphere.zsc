@@ -9,10 +9,10 @@ class Bubble_Slurpsphere : Bubble_Weapon
     states
     {
         Spawn:
-            BBSL A 1
+            BBSL ABCD random(2,7)
             {
                 LowerIfAttackHeld(7., 3.);
             }
-            Wait;
+            loop;
     }
 }
