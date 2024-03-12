@@ -11,15 +11,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
--   Added support for Radtech Pocket Radio
--   Added support for Radtech First Aid Spray
--   Added support for UaS Trauma Kit
--   Added support for Underqualified Gunman's Slurpable Spheres
+-   Added support for Radtech Pocket Radio.
+-   Added support for Radtech First Aid Spray.
+-   Added support for UaS Trauma Kit.
+-   Added support for Underqualified Gunman's Slurpable Spheres.
 
 ### Changed
 
 -   Updated Injector handlers for latest HDest changes.
 -   Updated build scripts.
+-   Updated default branch to fix release scripts.
 
 ## [v2.0.0] - 2023-09-03
 
