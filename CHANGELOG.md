@@ -21,13 +21,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Updated Injector handlers for latest HDest changes.
 -   Updated build scripts.
 
-## [v2.0.0]
+## [v2.0.0] - 2023-09-03
 
 ### Changed
 
 -   Updated for latest HDest by Half-Baked Cake.
 
-## [v1.4.2]
+## [v1.4.2] - 2020-06-10
 
 ### Added
 
