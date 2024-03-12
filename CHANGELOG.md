@@ -7,24 +7,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v3.0.0] - 2024-03-12
+
+### Added
+
+-   Added support for Radtech Pocket Radio
+-   Added support for Radtech First Aid Spray
+-   Added support for UaS Trauma Kit
+-   Added support for Underqualified Gunman's Slurpable Spheres
+
 ### Changed
 
--   Disabled Injector handlers for latest HDest changes.
+-   Updated Injector handlers for latest HDest changes.
 -   Updated build scripts.
 
-## [v2.0.0]
+## [v2.0.0] - 2023-09-03
 
 ### Changed
 
 -   Updated for latest HDest by Half-Baked Cake.
 
-## [v1.4.2]
+## [v1.4.2] - 2020-06-10
 
 ### Added
 
 -   Josh117's Initial Release.
 
-[Unreleased]: https://github.com/HDest-Community/HDestBubbles/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/HDest-Community/HDestBubbles/compare/v3.0.0...HEAD
+
+[v3.0.0]: https://github.com/HDest-Community/HDestBubbles/compare/v2.0.0...v3.0.0
 
 [v2.0.0]: https://github.com/HDest-Community/HDestBubbles/compare/1.4.2..2.0.0
 
