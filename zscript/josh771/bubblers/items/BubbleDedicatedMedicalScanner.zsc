@@ -1,0 +1,18 @@
+class Bubble_HDScanner : Bubble_Weapon
+{
+    default
+    {
+        Bubble_Weapon.weaponClass "HDScanner";
+        Bubble_Weapon.copyScale "HDScanner";
+    }
+
+    states
+    {
+        Spawn:
+            MEDI Z 1
+            {
+                LowerIfAttackHeld(7., 7.);
+            }
+            Wait;
+    }
+}
