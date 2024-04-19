@@ -1,0 +1,15 @@
+class Bubble_UASBandages : Bubble_Weapon
+{
+    default
+    {
+        Bubble_Weapon.weaponClass "UaS_SelfBandage";
+        Bubble_Weapon.copyScale "UaS_SelfBandage";
+    }
+
+    states
+    {
+        Spawn:
+            BAND A 1;
+            wait;
+    }
+}
