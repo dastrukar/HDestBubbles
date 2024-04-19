@@ -11,7 +11,9 @@ This add-on makes many of the items in Hideous Destructor float in front of play
 - Updated to target latest HD main
 - Added support for WIMP
 - Added CVar to allow bubbled weapons to appear to the user
+- Added sprite for improvised bandaging.
 
 ## Credits
 
 - Backpack Rotations: KDiZD team (artist JoeyTD?)
+- Improvised bandaging bubble sprite originally made by Bloodyacid, edited to resemble a gauze roll by Underqualified Gunman .

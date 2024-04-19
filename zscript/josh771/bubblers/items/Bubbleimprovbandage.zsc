@@ -1,0 +1,15 @@
+class Bubble_HDbandages : Bubble_Weapon
+{
+    default
+    {
+        Bubble_Weapon.weaponClass "SelfBandage";
+        Bubble_Weapon.copyScale "SelfBandage";
+    }
+
+    states
+    {
+        Spawn:
+            BAND A 1;
+            wait;
+    }
+}
