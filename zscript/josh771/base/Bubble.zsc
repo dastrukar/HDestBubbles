@@ -138,6 +138,7 @@ class HideousBubble : Actor abstract
         +NOINTERACTION
         +NOBLOCKMAP
         +NOGRAVITY
+        +NOTIMEFREEZE
         HideousBubble.shift 0.;
         HideousBubble.lower 0.;
         HideousBubble.reach 21.;
