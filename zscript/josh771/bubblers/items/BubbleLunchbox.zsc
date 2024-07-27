@@ -1,0 +1,18 @@
+class Bubble_Lunchbox : Bubble_Weapon
+{
+    default
+    {
+        Bubble_Weapon.weaponClass "VirLunchbox";
+    }
+
+    states
+    {
+        Spawn:
+            LCBX B 1
+            {
+                angle = target.angle;
+                translation = target.translation;
+            }
+            Wait;
+    }
+}
