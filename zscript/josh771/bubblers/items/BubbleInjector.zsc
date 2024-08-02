@@ -1,3 +1,4 @@
+/*
 class Bubble_Injector : Bubble_Weapon
 {
     static clearscope int GetInjectorSprite(readonly <Actor> injector)
@@ -55,3 +56,53 @@ class Bubble_Injector : Bubble_Weapon
             Wait;
     }
 }
+*/
+/*
+class Bubble_HDzerk : Bubble_Weapon
+{
+    default
+    {
+        Bubble_Weapon.weaponClass "PortableBerserkPack";
+        Bubble_Weapon.copyScale "PortableBerserkPack";
+    }
+
+    states
+    {
+        Spawn:
+            PSTR A 1;
+            wait;
+    }
+}
+*/
+class Bubble_HDstim : Bubble_Weapon
+{
+    default
+    {
+        Bubble_Weapon.weaponClass "PortableStimpack";
+        Bubble_Weapon.copyScale "PortableStimpack";
+    }
+
+    states
+    {
+        Spawn:
+            STIM A 1;
+            wait;
+    }
+}
+
+class Bubble_HDblood : Bubble_Weapon
+{
+    default
+    {
+        Bubble_Weapon.weaponClass "SecondBlood";
+        Bubble_Weapon.copyScale "SecondBlood";
+    }
+
+    states
+    {
+        Spawn:
+            PBLD A 1;
+            wait;
+    }
+}
+
