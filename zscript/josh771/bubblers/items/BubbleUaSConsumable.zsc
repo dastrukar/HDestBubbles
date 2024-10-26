@@ -11,7 +11,7 @@ class Bubble_UaSConsumable : Bubble_Weapon
             TNT1 A 1
             {
                 let ration = HDWeapon(target.player.ReadyWeapon);
-                CopyWeaponSprite(ration, "HSCVB0");
+                CopyWeaponSprite(ration, ration.icon.."");
             }
     }
 }
