@@ -134,6 +134,7 @@ class HideousBubble : Actor abstract
 
     default
     {
+        +NOTIMEFREEZE
         +FORCEXYBILLBOARD
         +NOINTERACTION
         +NOBLOCKMAP
